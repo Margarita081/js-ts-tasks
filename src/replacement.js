@@ -8,5 +8,16 @@
  * @returns {Array<number>}
  */
 module.exports.replacement = function replacement(arr) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  return arr.map(num => {
+    const absNum = Math.abs(num);
+    if (absNum >= 0 && absNum <= 9) {
+      return 1;
+    } else if (absNum >= 10 && absNum <= 99) {
+      return 2;
+    } else if (absNum >= 100 && absNum <= 999) {
+      return 3;
+    } else {
+      return 4;
+    }
+  });
 };
