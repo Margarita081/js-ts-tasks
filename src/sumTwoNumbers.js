@@ -5,5 +5,8 @@
  * @returns {number}
  */
 module.exports.sumTwoNumbers = function sumTwoNumbers(firstNumber, secondNumber) {
-  throw new Error('Not implemented');
+  if (isNaN(firstNumber) || isNaN(secondNumber)) {
+    const sum = firstNumber + secondNumber;
+  }
+  return sum;
 };
