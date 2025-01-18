@@ -1,10 +1,4 @@
-const { use } = require('chai');
-
-/**
- * Create a class named User
- * @type {User}
- */
-module.exports.User = User;
+const { user } = require('chai');
 class User {
   #firstName;
   #secondName;
@@ -44,25 +38,31 @@ class User {
     }
   
       set secondName(newSecondName){
-        if (typeof newSecondName !== string) {
+        if (typeof newSecondName !== 'string') {
           throw new Error('Second name must be a string');
       }
       this.#secondName = newSecondName;
     }
   
-      get fullName() {
+      get name() {
           return `${this.#firstName} ${this.#secondName}`;
       }
     
-      get introduce() {
-        return `My name is ${this.fullName}, I'm ${this.#age}`;
+      introduce() {
+        return `My name is ${this.name}, I'm ${this.#age}`;
       }
   
-      get celebrateBirthday() {
-        this.age = this.#age + 1;
+      celebrateBirthday() {
+        this.age++;
       }
   
   }
+/**
+ * Create a class named User
+ * @type {User}
+ */
+module.exports.User = User;
+
 
 /**
  * Create new User object and return it
@@ -83,8 +83,7 @@ module.exports.createUser = function (firstName, secondName, age) {
  * @returns {Array<User>}
  */
 module.exports.createUsers = function (data) {
-  let users = data.map(item => createUser(item.firstName, item.secondName, item.age))  
-  return users;
+  return data.map(item => new User(item.firstName, item.secondName, item.age))  
 
   };
   
@@ -107,9 +106,10 @@ module.exports.findUsersByAge = function (users, age) {
  * @returns {function(*): *[]}
  */
 module.exports.createUsersSortFn = function (TestUtils) {
-  return function (users) {
-    return users.sort((a, b) => TestUtils.compare(a, b))};
-    
+  return function(users) {
+    return users.sort((a, b) => TestUtils.compare(a, b));
+
+};
 };
 
 /**
@@ -120,8 +120,9 @@ module.exports.createUsersSortFn = function (TestUtils) {
 module.exports.celebrate = function (users) {
   users.forEach((user, index) => {
     if (index % 2 !== 0){
-      users.celebrateBirthday();
+      user.celebrateBirthday();
     }
   });
+
   return users;
 };
